@@ -20,23 +20,23 @@ attr_reader :id
       )
     SQL
 
-    DB[:conn].execute(sql) 
+    DB[:conn].execute(sql)
   end
 
-  def self.drop_table 
+  def self.drop_table
     sql = "DROP TABLE IF EXISTS students"
     DB[:conn].execute(sql)
-  end 
+  end
 
   def save
-    sql = <<-SQL 
+    sql = <<-SQL
       INSERT INTO students (id, name, grade)
       VALUES (?,?,?)
-    SQL 
+    SQL
 
     DB[:conn].execute(sql, self.name, self.grade)
     @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0]
-  end 
+  end
 
   # Remember, you can access your database connection anywhere in this class
   #  with DB[:conn]
